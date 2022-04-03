@@ -1,0 +1,44 @@
+{
+  "name": "node-server-router",
+  "version": "1.0.0",
+  "description": "Simple way to create routes on Node.js server w/ added complex options. ",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
+  "scripts": {
+    "test": "jest --config jestconfig.json",
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CarterCobb/node-server-router.git"
+  },
+  "keywords": [
+    "Router"
+  ],
+  "author": "Carter J. Cobb <ccobb@cartercobb.com> (https://www.cartercobb.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CarterCobb/node-server-router/issues"
+  },
+  "homepage": "https://github.com/CarterCobb/node-server-router#readme",
+  "devDependencies": {
+    "@jest/globals": "^27.5.1",
+    "@types/jest": "^27.4.1",
+    "jest": "^27.5.1",
+    "prettier": "^2.6.2",
+    "ts-jest": "^27.1.4",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.6.3"
+  }
+}
