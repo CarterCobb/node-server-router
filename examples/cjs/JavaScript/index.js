@@ -7,4 +7,4 @@ nsr.RouteFactory.applyRoutesTo(app, {
   route_dir: "routes",
 });
 
-app.listen(6968, () => console.log("started"));
+app.listen(6969, () => console.log("started"));
