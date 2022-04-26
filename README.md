@@ -121,7 +121,7 @@ nsr.RouteFactory.applyRoutesTo(app, { route_dir: "/services/main/routes" });
 
 ## Examples
 
-You can find simple eaxmples for the 4 supported types of Node.js Servers:
+You can find simple examples for the 4 supported types of Node.js Servers:
 
 - JavaScript:
   - [ESM Example](https://github.com/CarterCobb/node-server-router/tree/main/examples/esm/JavaScript)
