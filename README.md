@@ -4,13 +4,9 @@ This packages provides and easy way to create dynamic routing on your [NodeJS](h
 
 ## Prerequisites
 
----
-
 As most NodeJS projects require, please ensure you have NodeJS installed; install [here](https://nodejs.org/en/download/)
 
 ## Install
-
----
 
 Using `npm`:
 
@@ -25,8 +21,6 @@ yarn add node-server-router
 ```
 
 ## Usage
-
----
 
 ### ECMAScript Modules
 
@@ -72,8 +66,6 @@ app.listen(6969);
 
 ## Documentation
 
----
-
 ### Config
 
 Configuration will allow you to specify unique items to your server. _All config properties are optional._
@@ -90,13 +82,20 @@ const config = {
 
 #### Options
 
-**`route_dir`**  
-The folder were your routes reside. e.g if the passed values is `routes` it will be interpreted as `./routes`; `/folder1/folder2` is `./folder1/folder2`; defaults to `routes`.
+| Prop name | Optional | type | Default | Description |
+| --------- | -------- | ---- |------- |----------- |
+| `route_dir` | yes | `string` | `routes` | The folder were your routes reside. e.g if the passed values is `routes` it will be interpreted as `./routes`; `/folder1/folder2` is `./folder1/folder2`. |
+| `api_version` | yes | `string` | `/` | API verison identifier. e.g '/v1' resulting in `http://localhost:6969/v1/...` |
+| `log_configured` | yes | `boolean` | `false` | Logs to the console when routes are successfully configured. |
 
-Example:
+Example usage of any or all combinations of config props:
 
 ```javascript
 // ...
 nsr.RouteFactory.applyRoutesTo(app, { route_dir: "/services/main/routes" });
 // ...
 ```
+
+## License
+
+[MIT](https://github.com/CarterCobb/node-server-router/blob/main/LICENSE)
