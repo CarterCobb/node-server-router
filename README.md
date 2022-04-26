@@ -2,6 +2,12 @@
 
 This packages provides and easy way to create dynamic routing on your [NodeJS](https://nodejs.org/en/) & [ExpressJS](https://expressjs.com/) server. It allows you to add API route files to any directory and bind them all to the ExpressJS [Application](https://expressjs.com/en/api.html#app) instance.
 
+[![NPM version](https://img.shields.io/npm/v/node-server-router.svg?style=flat-square)](https://www.npmjs.com/package/node-server-router)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/feross/standard)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/CarterCobb/node-server-router/graphs/commit-activity)
+[![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](ttps://github.com/CarterCobb/node-server-router#readme)
+[![LICENSE](https://img.shields.io/github/license/CarterCobb/node-server-router)](https://github.com/CarterCobb/node-server-router/blob/main/LICENSE)
+
 ## Prerequisites
 
 As most NodeJS projects require, please ensure you have NodeJS installed; install [here](https://nodejs.org/en/download/)
