@@ -12,5 +12,3 @@ const config: RouteFactoryOptions = {
 RouteFactory.applyRoutesTo(app, config);
 
 app.listen(6969, () => console.log("started"))
-
-// Need to add conditions in RoutFactory.ts to look for tsconfig files and get the outDir prop from it.
