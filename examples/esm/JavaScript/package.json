@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "index.js",
+  "main": "index.mjs",
   "dependencies": {
     "express": "^4.17.3",
     "node-server-router": "^1.0.0"
   },
   "scripts": {
+    "start": "node index.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
