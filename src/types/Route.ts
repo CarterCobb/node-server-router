@@ -15,4 +15,4 @@ export interface Route {
   handlers: [RequestHandler];
 }
 
-export type Routes = [Route];
+export type Routes = Route[];
