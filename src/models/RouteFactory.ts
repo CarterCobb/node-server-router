@@ -31,37 +31,40 @@ export default class RouteFactory {
    */
   static async applyRoutesTo(app: Application, options: RouteFactoryOptions) {
     const opts = Object.assign({}, defaults, options);
-    var ROUTES: Routes = [];
-    var tsconfig: any = null;
+    const ROUTES: Routes = [];
+    let tsconfig: any = null;
     try {
       tsconfig = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'tsconfig.json'), 'utf-8'));
-    } catch {}
-    const directory_path = path.resolve(
+    } catch {
+      tsconfig = null;
+    }
+    const directoryPath = path.resolve(
       process.cwd(),
       tsconfig ? tsconfig.compilerOptions.outDir || '' : '',
       opts.route_dir,
     );
-    readdir(directory_path, async (err, files) => {
+    readdir(directoryPath, async (err, files) => {
+      /*eslint-disable */
       if (err) return console.log(`[${pid}] unable to scan directory: `, err);
-      for await (var file of files) {
+      /*eslint-enable */
+      for await (const file of files) {
         const ext = file.split('.').pop() || '';
         if (['ts', 'mts', 'js', 'mjs'].includes(ext)) {
           try {
-            var routes: Routes = [];
+            let routes: Routes = [];
             try {
               // ESM
-              const file_path = `${/^win/i.test(process.platform) ? 'file:\\\\' : ''}${path.join(
-                directory_path,
-                file,
-              )}`;
-              routes = (await import(file_path)).default;
+              const filePath = `${/^win/i.test(process.platform) ? 'file:\\\\' : ''}${path.join(directoryPath, file)}`;
+              routes = (await import(filePath)).default;
             } catch (e) {
               // CJS
-              routes = (await import(path.join(directory_path, file))).default;
+              routes = (await import(path.join(directoryPath, file))).default;
             }
             if (this.isRoutes(routes)) ROUTES.push(...routes);
           } catch (error) {
-            console.error(error);
+            /*eslint-disable */
+            console.log(error);
+            /*eslint-enable */
             process.exit(1);
           }
         }
@@ -70,7 +73,9 @@ export default class RouteFactory {
         app[route.action].bind(app)(`${opts.api_version}${route.url}`, ...route.handlers),
       );
       app.all('*', (_, res) => res.sendStatus(404));
+      /*eslint-disable */
       if (opts.log_configured) console.log(`[${pid}] routes configured`);
+      /*eslint-enable */
     });
   }
 }
