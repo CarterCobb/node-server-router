@@ -44,20 +44,26 @@ export default class RouteFactory {
     readdir(directory_path, async (err, files) => {
       if (err) return console.log(`[${pid}] unable to scan directory: `, err);
       for await (var file of files) {
-        try {
-          var routes: Routes = [];
+        const ext = file.split('.').pop() || '';
+        if (['ts', 'mts', 'js', 'mjs'].includes(ext)) {
           try {
-            // ESM
-            const file_path = `${/^win/i.test(process.platform) ? 'file:\\\\' : ''}${path.join(directory_path, file)}`;
-            routes = (await import(file_path)).default;
-          } catch (e) {
-            // CJS
-            routes = (await import(path.join(directory_path, file))).default;
+            var routes: Routes = [];
+            try {
+              // ESM
+              const file_path = `${/^win/i.test(process.platform) ? 'file:\\\\' : ''}${path.join(
+                directory_path,
+                file,
+              )}`;
+              routes = (await import(file_path)).default;
+            } catch (e) {
+              // CJS
+              routes = (await import(path.join(directory_path, file))).default;
+            }
+            if (this.isRoutes(routes)) ROUTES.push(...routes);
+          } catch (error) {
+            console.error(error);
+            process.exit(1);
           }
-          if (this.isRoutes(routes)) ROUTES.push(...routes);
-        } catch (error) {
-          console.error(error);
-          process.exit(1);
         }
       }
       ROUTES.forEach((route: Route) =>
