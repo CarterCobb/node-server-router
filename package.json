@@ -2,16 +2,25 @@
   "name": "node-server-router",
   "version": "1.0.0",
   "description": "Simple way to create routes on Node.js server w/ added complex options. ",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.mjs",
+  "types": "lib/esm/index.d.js",
+  "type": "module",
   "files": [
-    "lib/**/*"
+    "lib/"
   ],
+  "exports": {
+    ".": {
+      "import": "./lib/esm/index.js",
+      "require": "./lib/cjs/index.js"
+    }
+  },
   "scripts": {
     "test": "jest --config jestconfig.json",
-    "build": "tsc",
+    "build": "bash -c 'rm -fr lib/*' &&tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && bash -c 'sh ./fixup.sh'",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
+    "buildLink": "npm run build && npm link",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
