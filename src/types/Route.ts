@@ -1,10 +1,18 @@
 import { RequestHandler } from 'express';
-import HttpAction from './HttpAction';
 
-type Route = {
+export enum HTTPAction {
+  GET = 'get',
+  POST = 'post',
+  PATCH = 'patch',
+  PUT = 'put',
+  DELETE = 'delete',
+  OPTIONS = 'options',
+}
+
+export interface Route {
   url: string;
-  action: HttpAction;
-  handlers: Array<RequestHandler>;
-};
+  action: HTTPAction;
+  handlers: [RequestHandler];
+}
 
-export default Route;
+export type Routes = Array<Route>;
