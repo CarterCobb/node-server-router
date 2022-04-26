@@ -5,6 +5,7 @@ import path from 'path';
 import { Route, Routes } from '../types/Route.js';
 import RouteFactoryOptions from '../types/RouteFactoryOptions.js';
 import Defaults from '../types/Default.js';
+import fs from 'fs';
 
 const defaults: Defaults<RouteFactoryOptions> = {
   api_version: '/',
@@ -31,21 +32,32 @@ export default class RouteFactory {
   static async applyRoutesTo(app: Application, options: RouteFactoryOptions) {
     const opts = Object.assign({}, defaults, options);
     var ROUTES: Routes = [];
-    const directory_path = path.resolve(process.cwd(), opts.route_dir);
+    var tsconfig: any = null;
+    try {
+      tsconfig = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'tsconfig.json'), 'utf-8'));
+    } catch {}
+    const directory_path = path.resolve(
+      process.cwd(),
+      tsconfig ? tsconfig.compilerOptions.outDir || '' : '',
+      opts.route_dir,
+    );
     readdir(directory_path, async (err, files) => {
       if (err) return console.log(`[${pid}] unable to scan directory: `, err);
       for await (var file of files) {
         try {
-          var routes: Routes = []
-          try { // ESM 
+          var routes: Routes = [];
+          try {
+            // ESM
             const file_path = `${/^win/i.test(process.platform) ? 'file:\\\\' : ''}${path.join(directory_path, file)}`;
             routes = (await import(file_path)).default;
-          } catch { // CommonJS
+          } catch (e) {
+            // CJS
             routes = (await import(path.join(directory_path, file))).default;
           }
           if (this.isRoutes(routes)) ROUTES.push(...routes);
         } catch (error) {
           console.error(error);
+          process.exit(1);
         }
       }
       ROUTES.forEach((route: Route) =>
