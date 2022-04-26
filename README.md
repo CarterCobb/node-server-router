@@ -64,6 +64,23 @@ nsr.RouteFactory.applyRoutesTo(app, {
 app.listen(6969);
 ```
 
+### Route Structure
+
+All route files need to follow the following structure:
+
+```javascript
+import { HTTPAction } from "node-server-router";
+
+// @type {Array<Route>}
+export default [
+    {
+        url: "/dog:id",
+        action: HTTPAction.GET,
+        handlers: [...]
+    }
+];
+```
+
 ## Documentation
 
 ### Config
@@ -95,6 +112,17 @@ Example usage of any or all combinations of config props:
 nsr.RouteFactory.applyRoutesTo(app, { route_dir: "/services/main/routes" });
 // ...
 ```
+
+## Examples
+
+You can find simple eaxmples for the 4 supported types of Node.js Servers:
+
+- JavaScript:
+  - [ESM Example](https://github.com/CarterCobb/node-server-router/blob/main/LICENSE)
+  - [CJS Example](https://github.com/CarterCobb/node-server-router/blob/main/LICENSE)
+- TypeScript:
+  - [ESM Example](https://github.com/CarterCobb/node-server-router/blob/main/LICENSE)
+  - [CJS Example](https://github.com/CarterCobb/node-server-router/blob/main/LICENSE)
 
 ## License
 
