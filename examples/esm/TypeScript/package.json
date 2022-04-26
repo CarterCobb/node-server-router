@@ -5,7 +5,8 @@
   "type": "module",
   "main": "dist/index.mjs",
   "dependencies": {
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "node-server-router": "^1.0.0"
   },
   "scripts": {
     "build": "tsc",
