@@ -1,6 +1,6 @@
 {
   "name": "node-server-router",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Simple way to create routes on Node.js server w/ added complex options.",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.mjs",
@@ -21,7 +21,6 @@
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
     "buildLink": "npm run build && npm link",
-    "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
@@ -42,6 +41,7 @@
   "homepage": "https://github.com/CarterCobb/node-server-router#readme",
   "devDependencies": {
     "@jest/globals": "^27.5.1",
+    "@types/express": "^4.17.14",
     "@types/jest": "^27.4.1",
     "jest": "^27.5.1",
     "prettier": "^2.6.2",
