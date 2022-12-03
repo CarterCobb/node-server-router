@@ -13,6 +13,10 @@ const defaults: Defaults<RouteFactoryOptions> = {
   log_configured: false,
 };
 
+type PathError = {
+  code: string;
+};
+
 export default class RouteFactory {
   /**
    * Validates the proper type to concatinate routes
@@ -58,7 +62,17 @@ export default class RouteFactory {
               routes = (await import(filePath)).default;
             } catch (e) {
               // CJS
-              routes = (await import(path.join(directoryPath, file))).default;
+              try {
+                routes = (await import(path.join(directoryPath, file))).default;
+              } catch (e2) {
+                /*eslint-disable */
+                console.log(e);
+                /*eslint-enable */
+                if ((e2 as PathError).code !== undefined && (e2 as PathError).code === 'ERR_UNSUPPORTED_ESM_URL_SCHEME')
+                  throw new Error(
+                    "'node-server-router' Error: One or more of the files in your project contains an error.",
+                  );
+              }
             }
             if (this.isRoutes(routes)) ROUTES.push(...routes);
           } catch (error) {
